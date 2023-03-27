@@ -18,6 +18,24 @@ detections = detector.detectObjectsFromImage(input_image=os.path.join(execution_
 # custom = detector.CustomObjects(mouse=True, laptop=True, keyboard=True, phone=True)
 # detections = detector.detectCustomObjectsFromImage(custom_objects=custom, input_image=os.path.join(execution_path, "image.png"), output_image_path=os.path.join(execution_path, "image3new-custom.jpg"), minimum_percentage_probability=30)
 
+def create_dictionary(obj_list):
+    dictionary = {}
+    for index, name in enumerate(obj_list):
+        sum = obj_list.count(name)
+        if name not in dictionary:
+            dictionary[name] = sum
+    print(dictionary)
+    return dictionary
+
+def take_objects(dictionary):
+    obj_list = []
+    for eachObject in dictionary:
+        obj_list.append(eachObject["name"])
+    return obj_list
+
+objects_list = take_objects(detections)
+create_dictionary(objects_list)
+
 for eachObject in detections:
     print(eachObject["name"] , " : ", eachObject["percentage_probability"], " : ", eachObject["box_points"] )
     print("--------------------------------")
